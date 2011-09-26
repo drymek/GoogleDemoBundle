@@ -1,0 +1,16 @@
+{% extends 'AcmeDemoBundle::layout.html.twig' %}
+
+{% block title %}Symfony - Welcome{% endblock %}
+
+{% block content_header 'GoogleMap API Demo' %}
+
+
+{% block content %}
+    {% if google_maps.hasMaps() %}
+        {% for map in google_maps.getMaps() %}
+            {% autoescape false %}
+                {{ map.render }}
+            {% endautoescape %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
