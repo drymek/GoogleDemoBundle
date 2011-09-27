@@ -16,11 +16,23 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $map = new Map();
-        $map->setId("Demo");
+        $map->setId("demo-map");
+
         $marker = new Marker();
-        $marker->setLatitude(40.596631);
-        $marker->setLongitude(-73.972359);
+        $marker->setLatitude(50.294492);
+        $marker->setLongitude(18.67138);
+        $marker->setMeta(array(
+            'label' => 'x',
+            'infoWindow' => "<div>TEST</div>"
+        ));
         $map->addMarker($marker);
+
+        $marker = new Marker();
+        $marker->setLatitude(50.267848);
+        $marker->setLongitude(19.036560);
+        $map->addMarker($marker);
+        $map->setZoom(10);
+
         $this->container->get('google.maps')->addMap($map);
 
         return $this->render('AcmeGoogleDemoBundle:Default:index.html.twig', array(

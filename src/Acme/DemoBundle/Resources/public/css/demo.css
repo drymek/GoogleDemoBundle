@@ -291,3 +291,9 @@ ul#menu
     margin-right: 10px;
     display: inline;
 }
+
+div#demo-map 
+{
+    width: 100%;
+    height: 500px;
+}
