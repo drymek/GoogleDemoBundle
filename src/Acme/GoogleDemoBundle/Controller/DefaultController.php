@@ -38,19 +38,19 @@ class DefaultController extends Controller
 
         $this->get('google.maps')->addMap($map);
 
-        /*
         $map2 = new Map();
         $map2->setTemplating($this->get('templating'));
         $map2->setId("demo-map-click");
+        $map2->setClickCallback('function(element) { alert(element); }');
 
         $marker = new Marker();
         $marker->setLatitude(50.294492);
         $marker->setLongitude(18.67138);
         $map2->setCenter($marker);
-        $this->setZoom(10);
+        $map2->setZoom(10);
 
         $this->get('google.maps')->addMap($map2);
-        */
+
         return $this->render('AcmeGoogleDemoBundle:Default:index.html.twig', array(
         ));
     }

@@ -8,6 +8,9 @@
 {% block content %}
     {% if google_maps.hasMaps() %}
         {% for map in google_maps.getMaps() %}
+            {% if loop.first %}
+                {{ map.getGoogleMapLibrary | raw }}
+            {% endif %}
             {% autoescape false %}
                 {{ map.render }}
             {% endautoescape %}
