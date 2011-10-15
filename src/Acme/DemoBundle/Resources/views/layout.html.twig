@@ -5,6 +5,11 @@
         <link rel="stylesheet" href="{{ asset('bundles/acmedemo/css/demo.css') }}" type="text/css" media="all" />
         <title>{% block title %}Demo Bundle{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>                                                                            {% javascripts '@GoogleBundle/Resources/public/js/*'                                                                                     
+        %}                                                                                                                                                                
+            <script type="text/javascript" src="{{ asset_url }}"></script>                                                                                                
+        {% endjavascripts %} 
     </head>
     <body>
         <div id="symfony-wrapper">

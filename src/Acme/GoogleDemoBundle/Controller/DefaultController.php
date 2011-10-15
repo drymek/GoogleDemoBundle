@@ -35,6 +35,7 @@ class DefaultController extends Controller
             'infowindow' => '<div><b>TEST</b></div>',
         ));
         $map->addMarker($marker);
+        $map->setFitToMarkers(true);
 
         $this->get('google.maps')->addMap($map);
 
