@@ -9,8 +9,9 @@
     {% if google_maps.hasMaps() %}
         {% for map in google_maps.getMaps() %}
             {% if loop.first %}
-                {{ map.getGoogleMapLibrary | raw }}
+                <script type="text/javascript" src="{{ map.getGoogleMapLibrary }}"></script>
             {% endif %}
+
             {% autoescape false %}
                 {{ map.render }}
             {% endautoescape %}

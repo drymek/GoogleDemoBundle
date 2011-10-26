@@ -5,8 +5,9 @@ namespace Acme\GoogleDemoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AntiMattr\GoogleBundle\Maps\JavascriptMap as Map;
+
 use AntiMattr\GoogleBundle\Maps\Marker;
+use AntiMattr\GoogleBundle\MapsManager;
 
 class DefaultController extends Controller
 {
@@ -15,19 +16,23 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $map = new Map();
-        $map->setTemplating($this->get('templating'));
-        $map->setId("demo-map");
+        // FIRST MAP
+        $map = $this->get('google.maps')->create(MapsManager::MAP_JAVASCRIPT, 'demo-map');
 
+        /**
+         * Add first marker
+         */
         $marker = new Marker();
         $marker->setLatitude(50.294492);
         $marker->setLongitude(18.67138);
         $marker->setMeta(array(
-            'label' => 'x',
             'infowindow' => "<div>TEST</div>"
         ));
         $map->addMarker($marker);
 
+        /**
+         * Add second marker
+         */
         $marker = new Marker();
         $marker->setLatitude(50.267848);
         $marker->setLongitude(19.036560);
@@ -35,15 +40,24 @@ class DefaultController extends Controller
             'infowindow' => '<div><b>TEST</b></div>',
         ));
         $map->addMarker($marker);
+
+        // Fit map to markers
         $map->setFitToMarkers(true);
 
         $this->get('google.maps')->addMap($map);
 
-        $map2 = new Map();
-        $map2->setTemplating($this->get('templating'));
-        $map2->setId("demo-map-click");
-        $map2->setClickCallback('function(element) { alert(element); }');
+        // SECOND MAP
+        $map2 = $this->get('google.maps')->create(MapsManager::MAP_JAVASCRIPT, 'demo-map-click');
 
+        $callback = 'function (element) { 
+            debugger;
+            alert("Longitude: "+element.lng());
+            alert("Latitude: "+element.lat());
+        }';
+        $map2->setClickCallback($callback);
+
+
+        // Set map center
         $marker = new Marker();
         $marker->setLatitude(50.294492);
         $marker->setLongitude(18.67138);
@@ -52,7 +66,6 @@ class DefaultController extends Controller
 
         $this->get('google.maps')->addMap($map2);
 
-        return $this->render('AcmeGoogleDemoBundle:Default:index.html.twig', array(
-        ));
+        return $this->render('AcmeGoogleDemoBundle:Default:index.html.twig');
     }
 }
